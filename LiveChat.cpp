@@ -112,7 +112,7 @@ bool LiveChat::registerUser(const std::string& userName, const std::string& rawP
     // insert user info in hash
     m_redisClient.hset(m_loggedUser.redisHashKey, "user_name", userName);
     m_redisClient.hset(m_loggedUser.redisHashKey, "encr_password", rawPassword);
-    m_redisClient.hset(m_loggedUser.redisHashKey, "online", "true");
+    //m_redisClient.hset(m_loggedUser.redisHashKey, "online", "true");
 
     return true;
 }
@@ -130,19 +130,19 @@ bool LiveChat::loginUser(const std::string& userName, const std::string& rawPass
     if( rawPassword != storedPass )
         return false;
     // check if user is online 
-    if( m_redisClient.hget(userHashKey, "online") == "true" )
-        return false;
+    //if( m_redisClient.hget(userHashKey, "online") == "true" )
+        //return false;
 
     m_loggedUser.name = userName;
     m_loggedUser.id = *lookUpId;     
     m_loggedUser.redisHashKey = userHashKey;
     // set online
-    m_redisClient.hset(m_loggedUser.redisHashKey, "online", "true");
+    //m_redisClient.hset(m_loggedUser.redisHashKey, "online", "true");
     return true;
 }
 
 void LiveChat::logoutCurrentUser(){
-    m_redisClient.hset(m_loggedUser.redisHashKey, "online", "false");
+    //m_redisClient.hset(m_loggedUser.redisHashKey, "online", "false");
 
     m_loggedUser.name.clear();
     m_loggedUser.id.clear();     

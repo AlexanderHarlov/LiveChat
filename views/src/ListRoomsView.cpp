@@ -30,11 +30,10 @@ View* ListRoomsView::render(View* prevView, LiveChat* chat){
         std::cout << "Enter room name, different from the above. Do NOT use spaces in name (!q to cancel): ";
         fflush(stdout);
         std::cin >> roomName; 
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');    
-        if(roomName == "!q")
-            return chat->getViews()["MainMenuView"];
         // discard everything but the first word if the user entered space separated room name
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
+        if(roomName == "!q")
+            return chat->getViews()["MainMenuView"];
 
         if(!chat->createRoom(roomName)){
             showErrorMessage("Could not create room");
